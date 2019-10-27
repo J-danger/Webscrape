@@ -8,6 +8,19 @@ var cheerio = require("cheerio");
 // Initialize Express
 var app = express();
 
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
+
+// Parse application body as JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 // Database configuration
 var databaseUrl = "scrape";
 var collections = ["scrapedData"];
@@ -65,6 +78,10 @@ app.get("/all", function(req, res) {
         res.json(data);
       }
     });
+  });
+
+  app.get("/", function(req, res) {
+    res.render("index.handlebars");
   });
 
   app.listen(3000, function() {
