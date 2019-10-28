@@ -5,6 +5,11 @@ var mongojs = require("mongojs");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
+
+
+
+
+
 // Initialize Express
 var app = express();
 
@@ -96,8 +101,19 @@ app.get("/delete", function(req, res){
   })
 })
 
-  
+app.put("/saved/:id", function(req, res) {
+  // Remember: when searching by an id, the id needs to be passed in
+  // as (mongojs.ObjectId(IdYouWantToFind)) 
+  db.scrapedData.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {saved: true}}, function(err, data){
+    if (err){
+      throw err
+    } else {
+     
+      res.json(data)
+    }
+  })
 
+});
 
   app.get("/", function(req, res) {
     res.render("index.handlebars");
