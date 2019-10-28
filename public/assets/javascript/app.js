@@ -1,54 +1,58 @@
-// $(document).ready(function() {
-
-function displayResults(scrapedData) {
-  // console.log("scrapedData", scrapedData)
-    // First, empty the table
-    $("tbody").empty();
-  
-    // Then, for each entry of that json...
-    scrapedData.forEach(function(data) {
-      // console.log("data", data.title)
-      // console.log("link", data.link)
-      // Append each of the animal's properties to the table
-      var tr = $("<tr>").append(
-        $("<td>").text(data.title),
-        $("<td>").text(data.link),        
-        
-      );
-      // console.log("tr", tr)
-  
-      $("tbody").append(tr);
-    });
+// Grab the articles as a json
+$.getJSON("/all", function(data) {
+  // For each one
+  for (var i = 0; i < data.length; i++) {
+    // Display the apropos information on the page
+    $("#articles").append( "<div class='d-flex justify-content-around'>" + "<div id='article-container'>" +"<p data-id='" + data[i]._id + "'>" + "<h2> " + data[i].title + "</h2> " + "<br />" + "<img src='" +  data[i].image + "'</img>" + "<br />" +  data[i].link + "</p>" + "</div>"  + "</div>" );
   }
+});
 
-  $.getJSON("/all", function(data) {
-    //  console.log("data", data)
-    // Call our function to generate a table body
-    displayResults(data);
-  });
+$(document).on("click", "#newScrape", function() {
+  $.ajax({
+    method: "GET",
+    url: "/scrape"
+  }).then(function(data) {
+    console.log(data)
+    document.location.reload()
+  })
+})
 
-// })
+$(document).on("click", "#clearScrape", function(){
+  $.ajax({
+    method: "GET",
+    url: "/delete"
+  }).then(function(data){
+    console.log(data)
+    document.location.reload()
+  })
+})
 
-function createCard(article) {
-  // This function takes in a single JSON object for an article/headline
-  // It constructs a jQuery element containing all of the formatted HTML for the
-  // article card
-  var card = $("<div class='card'>");
-  var cardHeader = $("<div class='card-header'>").append(
-    $("<h3>").append(
-      $("<a class='article-link' target='_blank' rel='noopener noreferrer'>")
-        .attr("href", article.url)
-        .text(article.headline),
-      $("<a class='btn btn-success save'>Save Article</a>")
-    )
-  );
 
-  var cardBody = $("<div class='card-body'>").text(article.summary);
 
-  card.append(cardHeader, cardBody);
-  // We attach the article's id to the jQuery element
-  // We will use this when trying to figure out which article the user wants to save
-  card.data("_id", article._id);
-  // We return the constructed card jQuery element
-  return card;
-}
+// $(document).on("click", "#savenote", function() {
+//   // Grab the id associated with the article from the submit button
+//   var thisId = $(this).attr("data-id");
+
+//   // Run a POST request to change the note, using what's entered in the inputs
+//   $.ajax({
+//     method: "POST",
+//     url: "/articles/" + thisId,
+//     data: {
+//       // Value taken from title input
+//       title: $("#titleinput").val(),
+//       // Value taken from note textarea
+//       body: $("#bodyinput").val()
+//     }
+//   })
+//     // With that done
+//     .then(function(data) {
+//       // Log the response
+//       console.log(data);
+//       // Empty the notes section
+//       $("#notes").empty();
+//     });
+
+//   // Also, remove the values entered in the input and textarea for note entry
+//   $("#titleinput").val("");
+//   $("#bodyinput").val("");
+// });
