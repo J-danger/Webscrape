@@ -37,6 +37,10 @@ const db = require("./models/index");
 const PORT = 3000;
 
 
+// renders html
+app.get("/", function(req, res) {
+  res.render("index.handlebars");
+});
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
@@ -104,14 +108,6 @@ app.get("/delete", function(req, res){
      res.send("Clear Complete");
 })
 
-  app.get("/", function(req, res) {
-    res.render("index.handlebars");
-  });
-
-  app.listen(PORT, function() {
-    console.log("App running on port 3000!");
-  });
-
 // Mark a article as saved
 app.put("/saved/:id", function(req, res) {
  
@@ -144,21 +140,44 @@ app.put("/saved/:id", function(req, res) {
 });
 
 
-// // Route for grabbing a specific Article by id, populate it with it's note
-// app.get("/articles/:id", function(req, res) {
-//   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-//   db.Article.findOne({ _id: req.params.id })
-//     // ..and populate all of the notes associated with it
-//     .populate("note")
-//     .then(function(dbArticle) {
-//       // If we were able to successfully find an Article with the given id, send it back to the client
-//       res.json(dbArticle);
-//     })
-//     .catch(function(err) {
-//       // If an error occurred, send it to the client
-//       res.json(err);
-//     });
-// });
+
+// Route for getting all Articles from the db
+app.get("/saved", function(req, res) {
+  // Grab every document in the Articles collection
+  db.Article.find({saved: true})
+  .then(function(dbArticle) {
+    
+    // If we were able to successfully find Articles, send them back to the client
+    res.json(dbArticle);
+  })
+  .catch(function(err) {
+    // If an error occurred, send it to the client
+    res.json(err);
+  });
+});
+
+
+  app.listen(PORT, function() {
+    console.log("App running on port 3000!");
+  });
+
+
+
+// Route for grabbing a specific Article by id, populate it with it's note
+app.get("/articles/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  db.Article.findOne({ _id: req.params.id })
+    // ..and populate all of the notes associated with it
+    .populate("note")
+    .then(function(dbArticle) {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
 
 // // Route for saving/updating an Article's associated Note
 // app.post("/articles/:id", function(req, res) {

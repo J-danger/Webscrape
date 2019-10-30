@@ -1,8 +1,9 @@
-getUnsaved()
+getAll()
 
 // Grab the articles as a json
-function getUnsaved(){
+function getAll(){
 $.getJSON("/articles", function(data) {
+  $("#articles").empty()
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
@@ -14,7 +15,8 @@ $.getJSON("/articles", function(data) {
 // "<p data-id='" + data[i]._id + "'>" + 
 function getSaved(){
   // Grab the articles as a json
-  $.getJSON("/articles/saved", function(data) {
+  $.getJSON("/saved", function(data) {
+    $("#articles").empty()
     // For each one
     for (var i = 0; i < data.length; i++) {
       // Display the apropos information on the page
@@ -30,7 +32,7 @@ function getSaved(){
         url: "/scrape"
       }).then(function(data) {
         console.log(data)
-        getUnsaved()
+        getAll()
       })
     })
 
