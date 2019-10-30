@@ -6,9 +6,8 @@
 #notes {
     position: fixed;
     height: 150px;
-    width: 200px;
-    margin-right: 100px;
-    right: 250px;
+    width: 400px;    
+    right: 200px;
     background:  rgb(27, 27, 27);
     padding: 5px;
     color: white;
@@ -68,9 +67,8 @@ p {
 }
 
 .navbarContainer {
-    background: rgba(85, 85, 85, 0.705);
+    background: rgba(85, 85, 85, 0.705);   
     
-    width: 100%
     
 }
 

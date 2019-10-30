@@ -1,5 +1,5 @@
 getAll()
-
+$("#notes").empty()
 // Grab the articles as a json
 function getAll(){
 $.getJSON("/articles", function(data) {
@@ -83,7 +83,7 @@ function getSaved(){
       // The title of the article
       $("#notes").append("<h2>Add a Note!</h2>");         
       // A textarea to add a new note body
-      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>" + "<br />");
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
@@ -107,9 +107,7 @@ $("#notes").on("click", "#savenote", function() {
   $.ajax({
     method: "POST",
     url: "/articles/" + thisId,
-    data: {
-      // Value taken from title input
-      title: $("#titleinput").val(),
+    data: {     
       // Value taken from note textarea
       body: $("#bodyinput").val()
     }
@@ -122,8 +120,7 @@ $("#notes").on("click", "#savenote", function() {
       $("#notes").empty();
     });
 
-  // Also, remove the values entered in the input and textarea for note entry
-  $("#titleinput").val("");
+  // Also, remove the values entered in the input and textarea for note entry  
   $("#bodyinput").val("");
 });
 
@@ -143,8 +140,7 @@ $("#articles").on("click", "#seeNote", function(){
       // The title of the article
       $("#notes").append("<h4> Notes for: " + "</h4>" + "<h5>" + data.title + "</h5>"  );         
       // A textarea to add a new note body
-      $("#notes").append("<p>" + data.note.body + "</p>");
-     
+      $("#notes").append("<p>" + data.note.body + "</p>");     
 
       // If there's a note in the article
       if (data.note) {      
