@@ -7,7 +7,7 @@ $.getJSON("/articles", function(data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
-    $("#articles").append( "<a href=" + data[i].link + "  target='_blank'><h2>" + data[i].title + "</h2></a> " + "<br />" + "<img src='" +  data[i].img + "'</img>" + "<br />" + "<br />" +"<button class='btn' data-id='" + data[i]._id + "' id='saveArticle'>" + "Save" + "</button>" + "<button class='btn' data-id='" + data[i]._id + "' id='addNote'>" + "Add/Edit Note" + "</button>" + "<button class='btn' data-id='" + data[i]._id + "' id='seeNote'>" + "My Notes" + "</button>" + "</div>"  + "</div>" + "<br />" + "<br />" );
+    $("#articles").append( "<a href=" + data[i].link + "  target='_blank'><h2>" + data[i].title + "</h2></a> " + "<br />" + "<img src='" +  data[i].img + "'</img>" + "<br />" + "<br />" + "<p>" + data[i].summary + "</p>" + "<button class='btn' data-id='" + data[i]._id + "' id='saveArticle'>" + "Save" + "</button>" + "<button class='btn' data-id='" + data[i]._id + "' id='addNote'>" + "Add/Edit Note" + "</button>" + "<button class='btn' data-id='" + data[i]._id + "' id='seeNote'>" + "My Notes" + "</button>" + "</div>"  + "</div>" + "<br />" + "<br />" );
   }
 });
 }

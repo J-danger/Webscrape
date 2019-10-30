@@ -63,6 +63,8 @@ app.get("/scrape", function(req, res) {
       result.link = $(this).attr("href");
       
       result.img =  $(this).children(".image").children("img").attr("src");  
+
+      result.summary =  $(this).children(".meta").children("p").text(); 
       
       
       // Create a new Article using the `result` object built from scraping
