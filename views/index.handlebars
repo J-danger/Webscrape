@@ -11,7 +11,10 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  
+     
+  <div class="navbarContainer">
+  <nav class="navbar navbar-expand-lg">
   <a class="navbar-brand" href="/">Mongo Scraper</a>
   <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false"
     aria-label="Toggle navigation">
@@ -28,32 +31,40 @@
       <li class="nav-item">
         <a class="nav-link" id="saved" onmouseover="" style="cursor: pointer;">Saved Articles</a>
       </li>
+      </div>
       <li class="nav-item">
-        <button class="btn btn-danger scrape-new" id="newScrape">SCRAPE NEW ARTICLES!</a>
+        <button class="btn btn-primary scrape-new" id="newScrape">SCRAPE NEW ARTICLES!</a>
       </li>
       <li class="nav-item">
-        <button class="btn btn-danger clear" id="clearScrape">CLEAR ARTICLES!</a>
+        <button class="btn btn-primary clear" id="clearScrape">CLEAR ARTICLES!</a>
       </li>
     </ul>
   </div>
 </nav>
 
-<div class="jumbotron text-center">
-  <div class="overlay">
-  </div>
-  <div class="background-image">
-  </div>
-  <div class="caption">
-    <h1>Mongo Scraper</h1>
-    <p>Coindesk Edition</p>
+
+
+
+  <div class="container">
+  <div class="row">
+    <div class="col" >
+      <div id="articles"></div> 
+    </div>
+    
+    <div class="col">
+     <div id="notes"></div> 
+     </div>
+     
   </div>
 </div>
 
-<div class="d-flex justify-content-center">
   <div id="articles"></div> 
-    <div id="notes"></div>    
+  
  
+    <div id="notes"></div>   
+
   
   <script src="https://code.jquery.com/jquery.js"></script>
 	<script src="../assets/javascript/app.js"></script>
-</div>
+   <link rel="stylesheet" href="/assets/css/style.css">
+ </body>

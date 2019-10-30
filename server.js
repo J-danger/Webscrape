@@ -97,7 +97,7 @@ app.get("/articles", function(req, res) {
 });
 
 app.get("/delete", function(req, res){
-  db.Article.remove({})
+  db.Article.remove({})   
   .then(function(dbArticle) {
     // If we were able to successfully find Articles, send them back to the client
     res.json(dbArticle);
@@ -193,30 +193,14 @@ app.get("/notes", function(req, res) {
 
 
 
-app.post("/submit", function(req, res) {
+app.post("/articles/:id", function(req, res) {
 
   db.Note.create(req.body)
     .then(function(dbNote) {   
-      return db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
+      return db.Article.findOneAndUpdate({_id: req.params.id}, { $push: { note: dbNote._id } }, { new: true });
     })
-    .then(function(dbUser) {
-      // If the User was updated successfully, send it back to the client
-      res.json(dbUser);
-    })
-    .catch(function(err) {
-      // If an error occurs, send it back to the client
-      res.json(err);
-    });
-});
-
-// Route to get all User's and populate them with their notes
-app.get("/populateduser", function(req, res) {
-  // Find all users
-  db.Article.find({})
-    // Specify that we want to populate the retrieved users with any associated notes
-    .populate("notes")
     .then(function(dbArticle) {
-      // If able to successfully find and associate all Users and Notes, send them back to the client
+      // If the User was updated successfully, send it back to the client
       res.json(dbArticle);
     })
     .catch(function(err) {
@@ -224,3 +208,20 @@ app.get("/populateduser", function(req, res) {
       res.json(err);
     });
 });
+
+// Route for grabbing a specific Article by id, populate it with it's note
+app.get("/notes/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  db.Article.findOne({ _id: req.params.id })
+    // ..and populate all of the notes associated with it
+    .populate("note")
+    .then(function(dbArticle) {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+

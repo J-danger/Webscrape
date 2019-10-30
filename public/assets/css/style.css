@@ -3,3 +3,77 @@
     min-width: 45%;
 }
 
+#notes {
+    position: fixed;
+    height: 150px;
+    width: 200px;
+    margin-right: 100px;
+    right: 250px;
+    background:  rgb(27, 27, 27);
+    padding: 5px;
+    color: white;
+    
+}
+
+#articles {
+    width: 150%;
+}
+body {
+    background: rgb(27, 27, 27);
+}
+
+
+
+.row {
+    width: 75;
+}
+
+#saveArticle, #addNote, #seeNote, #articleLink   {
+   padding: 10px;
+   background: rgb(33, 150, 243);
+   color: white;
+   box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+   border-radius: 0.25rem;
+   transition: all 0.4s;
+   white-space: nowrap;   
+   border: none;
+   margin-right: 5px
+
+   
+}
+
+h2 {
+    color: white;
+}
+
+h2:hover {
+    color: blue;
+}
+
+img {
+    height: 200px;
+    width: 400
+}
+
+p {
+    font-size: 20px;    
+}
+
+.navbarContainer {
+    background: rgba(85, 85, 85, 0.705);
+    margin-bottom: 50px;
+    width: 100%
+    
+}
+
+#saved {
+color: rgb(33, 150, 243);
+}
+
+#articlesCol {
+    width: 50%;
+}
+
+
+
+
