@@ -139,8 +139,6 @@ app.put("/saved/:id", function(req, res) {
   );
 });
 
-
-
 // Route for getting all Articles from the db
 app.get("/saved", function(req, res) {
   // Grab every document in the Articles collection
