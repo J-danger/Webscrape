@@ -54,7 +54,7 @@ h2 {
 }
 
 h2:hover {
-    color: #801336;
+    color: rgb(33, 150, 243);
 }
 
 img {
@@ -76,6 +76,10 @@ p {
 
 .navbar-brand {
     color: white
+}
+
+#time{
+    font-size: 15px;    
 }
 
 #saved {

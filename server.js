@@ -65,6 +65,10 @@ app.get("/scrape", function(req, res) {
       result.img =  $(this).children(".image").children("img").attr("src");  
 
       result.summary =  $(this).children(".meta").children("p").text(); 
+
+      result.time =  $(this).children(".meta").children(".time").children("time").text();
+
+      result.author =  $(this).children(".meta").children(".time").text().split("|")[1];
       
       
       // Create a new Article using the `result` object built from scraping
