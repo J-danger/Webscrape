@@ -12,7 +12,6 @@ $.getJSON("/articles", function(data) {
 });
 }
 
-
 function getSaved(){
   // Grab the articles as a json
   $.getJSON("/saved", function(data) {
