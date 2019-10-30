@@ -28,7 +28,7 @@ body {
     width: 75;
 }
 
-#saveArticle, #addNote, #seeNote, #articleLink   {
+#saveArticle, #addNote, #seeNote, #articleLink, #savenote   {
    padding: 10px;
    background: rgb(33, 150, 243);
    color: white;
@@ -42,12 +42,17 @@ body {
    
 }
 
+#saveArticle:hover, #addNote:hover, #seeNote:hover, #articleLink:hover, #savenote:hover {
+    background: black;
+    color: white
+}
+
 h2 {
     color: white;
 }
 
 h2:hover {
-    color: blue;
+    color: #801336;
 }
 
 img {
@@ -61,9 +66,13 @@ p {
 
 .navbarContainer {
     background: rgba(85, 85, 85, 0.705);
-    margin-bottom: 50px;
+    
     width: 100%
     
+}
+
+.navbar-brand {
+    color: white
 }
 
 #saved {
@@ -72,6 +81,17 @@ color: rgb(33, 150, 243);
 
 #articlesCol {
     width: 50%;
+}
+.jumbotron {
+    background: #096394;
+    color: white;
+    height: 200px;
+    text-align: center;
+}
+
+.btn:hover {
+    background: black;
+    color: white
 }
 
 
