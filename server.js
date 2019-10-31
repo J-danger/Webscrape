@@ -103,7 +103,8 @@ app.get("/articles", function(req, res) {
 });
 
 app.get("/delete", function(req, res){
-  db.Article.remove({})   
+  db.Article.remove({})  
+  db.Note.remove({}) 
   .then(function(dbArticle) {
     // If we were able to successfully find Articles, send them back to the client
     res.json(dbArticle);
@@ -147,6 +148,36 @@ app.put("/saved/:id", function(req, res) {
   );
 });
 
+// Mark a article as not saved
+app.put("/articles/:id", function(req, res) {
+ 
+  db.Article.updateOne(
+    {
+      _id: mongojs.ObjectId(req.params.id)
+    },
+    {
+      // Set "read" to true for the book we specified
+      $set: {
+        saved: false
+      }
+    },
+    // When that's done, run this function
+    function(error, edited) {
+      // show any errors
+      if (error) {
+        console.log(error);
+        res.send(error);
+      }
+      else {
+        // Otherwise, send the result of our update to the browser
+        console.log(edited);
+        res.send(edited);
+      }
+          
+    }
+  );
+});
+
 // Route for getting all Articles from the db
 app.get("/saved", function(req, res) {
   // Grab every document in the Articles collection
@@ -185,8 +216,22 @@ app.get("/articles/:id", function(req, res) {
     });
 });
 
+// Route for grabbing a specifics saved Article by id
+app.get("/saved/:id", function(req, res) {
+  
+  db.Article.findOne({ _id: req.params.id })     
+    .then(function(dbArticle) {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
 
- 
+
+ // route for getting all notes
 app.get("/notes", function(req, res) { 
   db.Note.find({})
     .then(function(dbNote) {     
@@ -198,7 +243,7 @@ app.get("/notes", function(req, res) {
 });
 
 
-
+// route for posting a note to an existing article
 app.post("/articles/:id", function(req, res) {
 
   db.Note.create(req.body)

@@ -27,7 +27,7 @@ body {
     width: 75;
 }
 
-#saveArticle, #addNote, #seeNote, #articleLink, #savenote   {
+#saveArticle, #addNote, #seeNote, #articleLink, #savenote, #deleteNote, #unsaveArticle   {
    padding: 10px;
    background: rgb(33, 150, 243);
    color: white;
@@ -40,8 +40,14 @@ body {
 
    
 }
+#deleteNote {
+    font-size: 15px;
+    padding: 3px;
+    margin-left: 5px
 
-#saveArticle:hover, #addNote:hover, #seeNote:hover, #articleLink:hover, #savenote:hover {
+}
+
+#saveArticle:hover, #addNote:hover, #seeNote:hover, #articleLink:hover, #savenote:hover, #deleteNote:hover, #unsaveArticle:hover {
     background: black;
     color: white
 }

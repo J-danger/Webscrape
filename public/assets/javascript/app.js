@@ -1,5 +1,5 @@
 getAll()
-$("#notes").empty()
+
 // Grab the articles as a json
 function getAll(){
 $.getJSON("/articles", function(data) {
@@ -19,7 +19,7 @@ function getSaved(){
     // For each one
     for (var i = 0; i < data.length; i++) {
       // Display the apropos information on the page
-      $("#articles").append( "<a href=" + data[i].link + "  target='_blank'><h2>" + data[i].title + "</h2></a> " + "<br />" + "<img src='" +  data[i].img + "'</img>" + "<br />" + "<br />" +"<button data-id='" + data[i]._id + "' id='saveArticle'>" + "Save" + "</button>" + "<button data-id='" + data[i]._id + "' id='addNote'>" + "Add/Edit Note" + "</button>" + "<button data-id='" + data[i]._id + "' id='seeNote'>" + "My Notes" + "</button>" + "</div>"  + "</div>" + "<br />" + "<br />" );
+      $("#articles").append( "<a href=" + data[i].link + "  target='_blank'><h2>" + data[i].title + "</h2></a> " + "<br />" + "<img src='" +  data[i].img + "'</img>" + "<br />" + "<br />" +"<button data-id='" + data[i]._id + "' id='unsaveArticle'>" + "Unsave" + "</button>" + "<button data-id='" + data[i]._id + "' id='addNote'>" + "Add/Edit Note" + "</button>" + "<button data-id='" + data[i]._id + "' id='seeNote'>" + "My Notes" + "</button>" + "</div>"  + "</div>" + "<br />" + "<br />" );
     }
   });
   }
@@ -33,6 +33,8 @@ function getSaved(){
         getSaved()
       })
     })
+
+   
 
 
   $("#newScrape").on("click", function() { 
@@ -57,14 +59,23 @@ function getSaved(){
   })
   
   $(document).on("click", "#saveArticle", function() {
-    var thisId = $(this).attr("data-id");
-    console.log()
+    var thisId = $(this).attr("data-id");    
     $.ajax({
     method: "PUT",
     url: "/saved/" + thisId
   }).then(function(data){     
   })  
   });  
+
+  $(document).on("click", "#unsaveArticle", function() {
+    var thisId = $(this).attr("data-id");
+    $.ajax({
+      method: "PUT",
+      url: "/articles/" + thisId
+    }).then(function(data){ 
+      console.log(data)    
+    })  
+    }); 
 
 
   $("#articles").on("click", "#addNote", function(){
@@ -140,7 +151,8 @@ $("#articles").on("click", "#seeNote", function(){
       // The title of the article
       $("#notes").append("<h4> Notes for: " + "</h4>" + "<h5>" + data.title + "</h5>"  );         
       // A textarea to add a new note body
-      $("#notes").append("<p>" + data.note.body + "</p>");     
+      $("#notes").append("<p>" + data.note.body + "<button data-id='" + data.note._id + "' id='deleteNote'>" + "DELETE" + "</button>" + "</p>");     
+     
 
       // If there's a note in the article
       if (data.note) {      
@@ -150,16 +162,25 @@ $("#articles").on("click", "#seeNote", function(){
     });
 });
 
-$("#articles").on("click", "#deleteNote", function(){  
-  $("#notes").empty(); 
+
+
+
+function handleNoteDelete() {
+  // This function handles the deletion of notes
+  // First we grab the id of the note we want to delete
+  // We stored this data on the delete button when we created it
   var thisId = $(this).attr("data-id"); 
+  // Perform an DELETE request to "/api/notes/" with the id of the note we're deleting as a parameter
   $.ajax({
-    method: "GET",
-    url: "/notes/:id" + thisId
-  })   
+    url: "/notes/" + thisId,
+    method: "DELETE"
+  }).then(function() {
+    // When done, hide the modal
+    bootbox.hideAll();
+  });
+}
 
-});
-
+$(document).on("click", "#deleteNote", handleNoteDelete);
 
   
 
