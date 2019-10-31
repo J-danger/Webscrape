@@ -104,8 +104,9 @@ app.get("/articles", function(req, res) {
 
 app.get("/delete", function(req, res){
   db.Article.remove({})  
-  db.Note.remove({}) 
+  
   .then(function(dbArticle) {
+     
     // If we were able to successfully find Articles, send them back to the client
     res.json(dbArticle);
   })
