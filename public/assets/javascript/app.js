@@ -73,7 +73,8 @@ function getSaved(){
       method: "PUT",
       url: "/articles/" + thisId
     }).then(function(data){ 
-      console.log(data)    
+      console.log(data)  
+      getSaved()  
     })  
     }); 
 
