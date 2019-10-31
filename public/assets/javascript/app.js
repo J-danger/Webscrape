@@ -155,12 +155,6 @@ $("#articles").on("click", "#seeNote", function(){
       // A textarea to add a new note body
       $("#notes").append("<p>" + data.note.body + "<button data-id='" + data.note._id + "' id='deleteNote'>" + "DELETE" + "</button>" + "</p>");     
      
-
-      // If there's a note in the article
-      if (data.note) {      
-        // Place the body of the note in the body textarea
-        $("#notes").val(data.note.body);
-      }
     });
 });
 
