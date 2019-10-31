@@ -72,8 +72,9 @@ function getSaved(){
     $.ajax({
       method: "PUT",
       url: "/articles/" + thisId
-    }).then(function(data){ 
+    }).then(function(data){      
       console.log(data)    
+      getSaved()
     })  
     }); 
 
