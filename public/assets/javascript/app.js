@@ -118,9 +118,8 @@ $("#notes").on("click", "#savenote", function() {
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
-    url: "/articles/" + thisId,
-    data: {     
-      // Value taken from note textarea
+    url: "/notes/" + thisId,
+    data: {           
       body: $("#bodyinput").val()
     }
   })
@@ -167,7 +166,7 @@ function handleNoteDelete() {
   // Perform an DELETE request to "/api/notes/" with the id of the note we're deleting as a parameter
   console.log(thisId)
   $.ajax({
-    method: "GET",
+    method: "DELETE",
     url: "/notes/" + thisId
   }).then(function() {
     $("#notes").hide();
