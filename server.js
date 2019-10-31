@@ -247,8 +247,8 @@ app.get("/notes", function(req, res) {
 app.post("/articles/:id", function(req, res) {
 
   db.Note.create(req.body)
-    .then(function(dbNote) {   
-      return db.Article.findOneAndUpdate({_id: req.params.id}, { $push: { note: dbNote._id } }, { new: true });
+    .then((dbNote) => {   
+     db.Article.findOneAndUpdate({_id: req.params.id}, { $push: { note: dbNote._id } }, { new: true });
     })
     .then(function(dbArticle) {
       // If the User was updated successfully, send it back to the client
@@ -263,9 +263,26 @@ app.post("/articles/:id", function(req, res) {
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/notes/:id", function(req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  db.Article.findOne({ _id: req.params.id })
+  db.Note.findOne({ _id: req.params.id })
     // ..and populate all of the notes associated with it
-    .populate("note")
+    // .populate("note")
+    .then(function(dbArticle) {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+
+// Route for grabbing a specific Article by id, populate it with it's note
+app.delete("/notes/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  db.Note.findOne({ _id: req.params.id })
+    // ..and populate all of the notes associated with it
+    // .populate("note")
     .then(function(dbArticle) {
       // If we were able to successfully find an Article with the given id, send it back to the client
       res.json(dbArticle);

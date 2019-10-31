@@ -129,7 +129,7 @@ $("#notes").on("click", "#savenote", function() {
       // Log the response
       console.log(data);
       // Empty the notes section
-      $("#notes").empty();
+      $("#notes").hide();
     });
 
   // Also, remove the values entered in the input and textarea for note entry  
@@ -137,8 +137,9 @@ $("#notes").on("click", "#savenote", function() {
 });
 
 $("#articles").on("click", "#seeNote", function(){
-  
+  $("#notes").show();
   $("#notes").empty();
+
  
   var thisId = $(this).attr("data-id");
  
@@ -164,20 +165,18 @@ $("#articles").on("click", "#seeNote", function(){
 });
 
 
-
-
 function handleNoteDelete() {
   // This function handles the deletion of notes
   // First we grab the id of the note we want to delete
   // We stored this data on the delete button when we created it
-  var thisId = $(this).attr("data-id"); 
+  var thisId = $(this).attr("data-id");
   // Perform an DELETE request to "/api/notes/" with the id of the note we're deleting as a parameter
+  console.log(thisId)
   $.ajax({
-    url: "/notes/" + thisId,
-    method: "DELETE"
+    method: "GET",
+    url: "/notes/" + thisId
   }).then(function() {
-    // When done, hide the modal
-    bootbox.hideAll();
+    $("#notes").hide();
   });
 }
 
