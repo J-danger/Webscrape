@@ -37,7 +37,8 @@ app.set("view engine", "handlebars");
 // Require all models
 const db = require("./models/index");
 
-const PORT = 3000;
+
+app.listen(process.env.PORT || 5000)
 
 
 // renders html
@@ -201,9 +202,7 @@ app.get("/saved", function(req, res) {
 });
 
 
-  app.listen(PORT, function() {
-    console.log("App running on port 3000!");
-  });
+ 
 
   // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
