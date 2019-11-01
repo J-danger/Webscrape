@@ -7,7 +7,7 @@
     position: fixed;
     height: 150px;
     width: 400px;    
-    right: 200px;
+    right: 150px;
     background:  rgb(27, 27, 27);
     padding: 5px;
     color: white;
@@ -15,7 +15,7 @@
 }
 
 #articles {
-    width: 150%;
+    width: 100%;
 }
 body {
     background: rgb(27, 27, 27);
@@ -50,6 +50,10 @@ body {
 #saveArticle:hover, #addNote:hover, #seeNote:hover, #articleLink:hover, #savenote:hover, #deleteNote:hover, #unsaveArticle:hover {
     background: black;
     color: white
+}
+
+#saved.nav-link:hover{
+    color: rgba(10,110,189)
 }
 
 
@@ -105,52 +109,63 @@ color: rgb(33, 150, 243);
     color: white
 }
 
+@media only screen and (max-width: 400px){ 
+    #notes  {
+        right: 5px;
+        width: 25%;
+    }
+    }
+
+@media only screen and (max-width: 500px){ 
+    #notes  {
+        right: 5px;
+        width: 25%;
+    }
+    }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px){ 
     #notes  {
-        right: 0px;
+        right: 10px;
+        width: 35%;
     }
     }
-    /* Small devices (portrait tablets and large phones, 600px and up) */
-    @media only screen and (min-width: 600px) 
-    {
-      .card-body {
-        margin-top: 40px;
-        width: 80%;
-        display: inline-block;  
-      }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) 
+{
+    #notes  {
+        right: 10px;
+        width: 35%;
     }
-    /* Medium devices (landscape tablets, 768px and up) */
-    @media only screen and (min-width: 768px) 
-    {
-      .card-body {
-        margin-top: 40px;
-        width: 60%;
-        display: inline-block;  
-      }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) 
+{
+    .card-body {
+    margin-top: 40px;
+    width: 60%;
+    display: inline-block;  
     }
-    /* Large devices (laptops/desktops, 992px and up) */
-    @media only screen and (min-width: 992px) 
-    {  .card-body {
-      margin-top: 40px;
-      width: 50%;
-      display: inline-block;  
-      }
-    }
-    /* Extra large devices (large laptops and desktops, 1200px and up) */
-    @media only screen and (min-width: 1200px) 
-    {.card-body {
-      margin-top: 40px;
-      width: 50%;
-      display: inline-block;  
-      }}
-    /* Extra large devices (large laptops and desktops, 1400px and up) */
-    @media only screen and (min-width: 1400px) 
-    {.card-body {
-      margin-top: 40px;
-      width: 50%;
-      display: inline-block;  
-      }}
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) 
+{  #newscrape, #clearscrape {
+    
+}
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) 
+{.card-body {
+    margin-top: 40px;
+    width: 50%;
+    display: inline-block;  
+    }}
+/* Extra large devices (large laptops and desktops, 1400px and up) */
+@media only screen and (min-width: 1400px) 
+{.card-body {
+    margin-top: 40px;
+    width: 50%;
+    display: inline-block;  
+    }}
   
 
 
