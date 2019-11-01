@@ -1,5 +1,5 @@
 getAll()
-
+$("#notes").hide();
 // Grab the articles as a json
 function getAll(){
 $.getJSON("/articles", function(data) {
@@ -78,11 +78,13 @@ function getSaved(){
     })  
     }); 
 
-
+// ADD/EDIT NOTES
   $("#articles").on("click", "#addNote", function(){
   
+  $("#notes").hide();
   $("#notes").empty();
- 
+  $("#notes").fadeIn(800);
+  
   var thisId = $(this).attr("data-id");
  
   $.ajax({
@@ -109,8 +111,7 @@ function getSaved(){
     });
 });
 
-
-// When you click the savenote button
+// SAVE NOTE BUTTON
 $("#notes").on("click", "#savenote", function() {
   // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
@@ -126,7 +127,7 @@ $("#notes").on("click", "#savenote", function() {
     // With that done
     .then(function(data) {
       // Log the response
-      console.log(data);
+      console.log(data);      
       // Empty the notes section
       $("#notes").hide();
     });
@@ -135,10 +136,11 @@ $("#notes").on("click", "#savenote", function() {
   $("#bodyinput").val("");
 });
 
+// MY NOTES
 $("#articles").on("click", "#seeNote", function(){
-  $("#notes").show();
+  $("#notes").hide();
   $("#notes").empty();
-
+  $("#notes").fadeIn(800);
  
   var thisId = $(this).attr("data-id");
  
@@ -152,28 +154,12 @@ $("#articles").on("click", "#seeNote", function(){
       // The title of the article
       $("#notes").append("<h4> Notes for: " + "</h4>" + "<h5>" + data.title + "</h5>"  );         
       // A textarea to add a new note body
-      $("#notes").append("<p>" + data.note.body + "<button data-id='" + data.note._id + "' id='deleteNote'>" + "DELETE" + "</button>" + "</p>");     
+      $("#notes").append("<p>" + data.note.body +"</p>");     
      
     });
 });
 
 
-function handleNoteDelete() {
-  // This function handles the deletion of notes
-  // First we grab the id of the note we want to delete
-  // We stored this data on the delete button when we created it
-  var thisId = $(this).attr("data-id");
-  // Perform an DELETE request to "/api/notes/" with the id of the note we're deleting as a parameter
-  console.log(thisId)
-  $.ajax({
-    method: "DELETE",
-    url: "/notes/" + thisId
-  }).then(function() {
-    $("#notes").hide();
-  });
-}
-
-$(document).on("click", "#deleteNote", handleNoteDelete);
 
   
 

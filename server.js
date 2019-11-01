@@ -21,8 +21,11 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/scrape", { useNewUrlParser: true });
+// remote db
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI);
 
 // Set Handlebars.
 const exphbs = require("express-handlebars");
@@ -300,20 +303,3 @@ app.get("/notes/:id", function(req, res) {
 });
 
 
-// DO THIS BUT FOR THE NOTES
-
-app.get("/notes", function(req, res){
-  db.Note.remove({})  
-  
-  .then(function(dbArticle) {
-     
-    // If we were able to successfully find Articles, send them back to the client
-    res.json(dbArticle);
-  })
-  .catch(function(err) {
-    // If an error occurred, send it to the client
-    res.json(err);
-  });
-     // Send a message to the client
-     res.send("Clear Complete");
-})
