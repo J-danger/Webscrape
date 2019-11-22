@@ -25,7 +25,7 @@ app.use(express.static("public"));
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
 // Set Handlebars.
 const exphbs = require("express-handlebars");
@@ -56,27 +56,30 @@ app.get("/scrape", function(req, res) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     const $ = cheerio.load(response.data);
         
-    $(".stream-article").each(function(i, element) {
-     
+    $("div.list-item-card").each(function(i, element) {
+      //  console.log(element)
       // Save an empty result object
       var result = {};     
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this).attr("title");
+      result.title = $(element).children(".text-content").children("a").children(".heading").text()
+      // "#__next > main > section > div:nth-child(2) > div > div > section.page-area-dotted-content > div > section > div:nth-child(2) > div > div.text-content > a:nth-child(2) > h4"
       
-      result.link = $(this).attr("href");
+    
+      result.link = $(element).children(".text-content").children("a:nth-child(2)").attr("href")
       
-      result.img =  $(this).children(".image").children("img").attr("src");  
-
-      result.summary =  $(this).children(".meta").children("p").text(); 
-
-      result.time =  $(this).children(".meta").children(".time").children("time").text();
-
-      result.author =  $(this).children(".meta").children(".time").text().split("|")[1];
+      result.img =  $(element).children(".media-content").children(".media-wrapper").children("a").children("picture").children("img").attr("src")     
+ 
+      result.summary =  $(element).children(".text-content").children("a:nth-child(4)").children(".card-text").text()     
+   
+      result.time =  $(element).children(".text-content").children(".card-desc-block").children(".time").text();  
+ 
+      result.author =  $(this).children(".text-content").children(".card-desc-block").children(".credit").children("a").text()
       
+    //  "#__next > main > section > div:nth-child(2) > div > div > section.page-area-dotted-content > div > section > div:nth-child(2) > div > div.text-content > div > span > a"
       
       // Create a new Article using the `result` object built from scraping
-      
+      console.log(result)
       db.Article.create(result)      
         .then(function(dbArticle) {
         

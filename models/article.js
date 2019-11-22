@@ -8,31 +8,31 @@ var ArticleSchema = new Schema({
 
   title: {
     type: String,
-    required: true,	
+    required: false,	
     unique: true
   },
  
   link: {
     type: String,
-    required: true,
+    required: false,
     unique: true
   },
   img: {
     type: String,
-    required: true,
+    required: false,
     unique: true
   }, 
   summary: {
     type: String,
-    required: true
+    required: false
   },
   time: {
     type: String,
-    required: true
+    required: false
   },
   author: {
     type: String,
-    required: true
+    required: false
   },
   note: {
     type: Schema.Types.ObjectId,
